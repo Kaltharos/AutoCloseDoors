@@ -49,6 +49,9 @@ Revert all doors in the game world to not close automatically.
 <details>
 <summary>Changelog</summary>
 
+`1.0.2`
+- Fixed issue with servants causing door to be stuck.
+
 `1.0.1`
 - Now properly initialize config when reloaded with wetstone.
 
