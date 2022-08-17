@@ -56,9 +56,9 @@ namespace AutoCloseDoors.Hooks
                     foreach (var entity in entities)
                     {
                         var Buffer = __instance.EntityManager.GetBuffer<OpenDoorsBuffer>(entity);
-                        for (int i = 0; i < Buffer.Length; i++)
+                        foreach (var item in Buffer)
                         {
-                            var door_entity = Buffer[i].DoorEntity;
+                            var door_entity = item.DoorEntity;
                             var Door = __instance.EntityManager.GetComponentData<Door>(door_entity);
                             Door.AgeSinceOpened = 9999999999;
                             Door.AutoCloseTime = AutoCloseDoor.AutoCloseTimer;

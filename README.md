@@ -49,6 +49,9 @@ Revert all doors in the game world to not close automatically.
 <details>
 <summary>Changelog</summary>
 
+`1.0.3`
+- Added config to prevent door auto closing if castle is decaying or under attack/siege.
+
 `1.0.2`
 - Fixed issue with servants causing door to be stuck.
 

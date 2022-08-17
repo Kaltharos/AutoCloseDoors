@@ -1,4 +1,5 @@
 ﻿using ProjectM;
+using ProjectM.CastleBuilding;
 using Unity.Collections;
 using Unity.Entities;
 
@@ -9,15 +10,38 @@ namespace AutoCloseDoors.Systems
         public static bool isAutoCloseDoor = true;
         public static float AutoCloseTimer = 2.0f;
         public static bool isEnableUninstall = false;
+        public static bool isAlwaysAutoClose = true;
+
         public static FixedString512 UninstallCommand = "~autoclosedooruninstall";
         public static EntityManager em = Plugin.Server.EntityManager;
 
         public static void DoorReceiver(Entity entity, EntityManager em)
         {
-            if (em.HasComponent<Door>(entity))
+            if (em.HasComponent<Door>(entity) && em.HasComponent<CastleHeartConnection>(entity))
             {
                 var Door = em.GetComponentData<Door>(entity);
-                Door.AutoCloseTime = AutoCloseTimer;
+                if (isAlwaysAutoClose)
+                {
+                    Door.AutoCloseTime = AutoCloseTimer;
+                }
+                else
+                {
+                    var HeartEntity = em.GetComponentData<CastleHeartConnection>(entity).CastleHeartEntity._Entity;
+                    if (em.HasComponent<Pylonstation>(HeartEntity))
+                    {
+                        var CastleHeart = em.GetComponentData<Pylonstation>(HeartEntity);
+                        if (CastleHeart.State == PylonstationState.Processing)
+                        {
+                            Door.AutoCloseTime = AutoCloseTimer;
+                        }
+                        else
+                        {
+                            Door.AgeSinceOpened = 9999999999;
+                            Door.AutoCloseTime = AutoCloseTimer;
+                        }
+
+                    }
+                }
                 em.SetComponentData(entity, Door);
             }
         }

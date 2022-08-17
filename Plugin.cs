@@ -33,6 +33,7 @@ namespace AutoCloseDoors
 
         private static ConfigEntry<bool> AutoCloseDoors;
         private static ConfigEntry<float> AutoCloseDoors_Timer;
+        private static ConfigEntry<bool> AlwaysAutoClose;
         private static ConfigEntry<bool> EnableUninstall;
         private static ConfigEntry<string> UninstallCommand;
 
@@ -72,6 +73,7 @@ namespace AutoCloseDoors
         {
             AutoCloseDoors = Config.Bind("Config", "Enable Auto Close Doors", true, "Switch on/off auto close for doors.");
             AutoCloseDoors_Timer = Config.Bind("Config", "Auto Close Timer", 2.0f, "How many second(s) to wait before door is automatically closed.");
+            AlwaysAutoClose = Config.Bind("Config", "Always Auto Close Doors", false, "When this is set to false, doors will not automatically close if castle is decaying, under attack, or being sieged.");
             EnableUninstall = Config.Bind("Config", "Enable Uninstall", false, "Do not enable for better performance on server.\n" +
                 "This uninstallation method is only required on servers that can't shutdown properly, like VRising on Linux Wine.\n" +
                 "On Windows, servers can be shutdown properly, and all doors is by default reverted back to normal on server shutdown.");
@@ -99,6 +101,7 @@ namespace AutoCloseDoors
             if (isInitialized) return;
             AutoCloseDoor.isAutoCloseDoor = AutoCloseDoors.Value;
             AutoCloseDoor.AutoCloseTimer = AutoCloseDoors_Timer.Value;
+            AutoCloseDoor.isAlwaysAutoClose = AlwaysAutoClose.Value;
             AutoCloseDoor.isEnableUninstall = EnableUninstall.Value;
             AutoCloseDoor.UninstallCommand = UninstallCommand.Value;
             isInitialized = true;
