@@ -26,6 +26,8 @@ After the uninstallation is complete, shutdown your server and remove the dll.
 Switch on/off auto close for doors.
 - `Auto Close Timer` [default `2.0`]\
 How many second(s) to wait before door is automatically closed.
+- `Always Auto Close Doors` [default `false`]\
+When this is set to false, doors will not automatically close if castle is decaying, under attack, or being sieged.
 - `Enable Uninstall` [default `false`]\
 Do not enable for better performance on server.\
 This uninstallation method is only required on servers that can't shutdown properly, like VRising on Linux Wine.\
